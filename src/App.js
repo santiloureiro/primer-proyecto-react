@@ -5,7 +5,7 @@ import ItemListContainer from "./components/ItemListContainer";
 function App() {
   return (
     <>
-      <header className="container font-poppins">
+      <header className="font-poppins">
         <NavBar />
       </header>
       <main>
