@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react"
-import ItemCount from "./ItemCount"
 import ItemList from "./ItemList"
 
 
@@ -18,31 +17,31 @@ useEffect(() => {
     const productos = [
         {   id: randomNumber(10000),
             name: "Zapato",
-            description: "Este es un zapato lokura",
+            description: "Esto es un zapato",
             stock: 6,
             price: 0,
-            pictureUrl: "https://picsum.photos/200",
+            pictureUrl: "https://via.placeholder.com/150/#C1C1C1/808080?Text=Placeholder"
         },
         {   id: randomNumber(10000),
             name: "Gorra",
-            description: "Este es una gorra lokura",
+            description: "Esto es una gorra",
             stock: randomNumber(100),
             price: 0,
-            pictureUrl: "https://picsum.photos/200",
+            pictureUrl: "https://via.placeholder.com/150/#C1C1C1/808080?Text=Placeholder"
         },
         {   id: randomNumber(10000),
             name: "Remera",
-            description: "Este es una remera lokura",
+            description: "Esto es una remera",
             stock: randomNumber(100),
             price: 0,
-            pictureUrl: "https://picsum.photos/200",
+            pictureUrl: "https://via.placeholder.com/150/#C1C1C1/808080?Text=Placeholder"
         },
         {   id: randomNumber(10000),
             name: "Zapatilla",
-            description: "Este es una zapatilla lokura",
+            description: "Esto es una zapatilla",
             stock: randomNumber(100),
             price: 0,
-            pictureUrl: "https://picsum.photos/200",
+            pictureUrl: "https://via.placeholder.com/150/#C1C1C1/808080?Text=Placeholder"
         },
     ]
     new Promise((resolve, reject) => {
