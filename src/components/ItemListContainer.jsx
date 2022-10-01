@@ -56,7 +56,7 @@ useEffect(() => {
 
 
     return(
-        <div className="flex justify-center my-11">
+        <div className="flex justify-center">
             {loading ? (
                 <div className="h-96 bg-white">
                 <div className="flex justify-center items-center h-full">
