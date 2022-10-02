@@ -1,18 +1,20 @@
 import NavBar from "./components/NavBar";
 import ItemListContainer from "./components/ItemListContainer";
+import ItemDetailContainer from "./components/ItemDetailContainer";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from "./components/Home";
 
 
 function App() {
   return (
-    <div className="bg-gradient-to-r from-violet-500 to-fuchsia-500">
+    <div className="bg-zinc-200">
       <BrowserRouter>
       <NavBar></NavBar>
       <Routes>
-        <Route exact path="/" element={<Home></Home>}></Route>
-        <Route exact path="/ItemListContainer" element={<ItemListContainer></ItemListContainer>}></Route>
-        <Route path="/items/:id" element={<ItemListContainer></ItemListContainer>}></Route>
+        <Route exact path="/home" element={<Home></Home>}></Route>
+        <Route exact path="/" element={<ItemListContainer></ItemListContainer>}></Route>
+        <Route path="/category/:categoriaId" element={<ItemListContainer></ItemListContainer>}></Route>
+        <Route path="/item/:productoId" element={<ItemDetailContainer></ItemDetailContainer>}></Route>
       </Routes>
       </BrowserRouter>
     </div>

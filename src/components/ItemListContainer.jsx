@@ -14,99 +14,97 @@ const ItemListContainer = () => {
 
     const [loading, setLoading] = useState(true)
 
+    const { categoriaId } = useParams()
+
 useEffect(() => {
     const productos = [
         {   id: 1,
             name: "Blueberry",
-            description: "TecladoDescrip",
+            description: "S",
             stock: 6,
             price: 200,
             pictureUrl: "https://res.cloudinary.com/djccefmjp/image/upload/v1654284302/Blueberrysin_gbte2j.png"
         },
         {   id: 2,
             name: "Strawberry",
-            description: "TecladoDescrip",
+            description: "S",
             stock: randomNumber(100),
             price: 200,
             pictureUrl: "https://res.cloudinary.com/djccefmjp/image/upload/v1654284301/StrawBerrysin_ci4zo0.png"
         },
         {   id: 3,
             name: "Yellow",
-            description: "TecladoDescrip",
+            description: "S",
             stock: randomNumber(100),
             price: 200,
             pictureUrl: "https://res.cloudinary.com/djccefmjp/image/upload/v1654284301/Yellowsin_vna33d.png"
         },
         {   id: 4,
             name: "OrangePeel",
-            description: "TecladoDescrip",
+            description: "M",
             stock: randomNumber(100),
             price: 200,
             pictureUrl: "https://res.cloudinary.com/djccefmjp/image/upload/v1654284302/OrangePeel_Medium_lfcisa.png"
         },
         {   id: 5,
             name: "Oreo",
-            description: "TecladoDescrip",
+            description: "M",
             stock: randomNumber(100),
             price: 200,
             pictureUrl: "https://res.cloudinary.com/djccefmjp/image/upload/v1654284302/Oreo_Mediumsin_hov8av.png"
         },
         {   id: 6,
             name: "BlueSky",
-            description: "TecladoDescrip",
+            description: "M",
             stock: randomNumber(100),
             price: 200,
             pictureUrl: "https://res.cloudinary.com/djccefmjp/image/upload/v1654284301/BlueSky_Medium_vmfmdr.png"
         },
         {   id: 7,
             name: "Bee",
-            description: "TecladoDescrip",
+            description: "L",
             stock: randomNumber(100),
             price: 200,
             pictureUrl: "https://res.cloudinary.com/djccefmjp/image/upload/v1654284301/Bee_Largesin_gjxcoc.png"
         },
         {   id: 8,
             name: "WaterMelon",
-            description: "TecladoDescrip",
+            description: "L",
             stock: randomNumber(100),
             price: 200,
             pictureUrl: "https://res.cloudinary.com/djccefmjp/image/upload/v1654284301/WaterMelon_Large_cbe1wz.png"
         },
         {   id: 9,
             name: "NightLight",
-            description: "TecladoDescrip",
+            description: "L",
             stock: randomNumber(100),
             price: 200,
             pictureUrl: "https://res.cloudinary.com/djccefmjp/image/upload/v1654284301/NightLight_Largesin_y2xb8l.png"
         },
     ]
-    new Promise((resolve, reject) => {
+    const getProducts = new Promise((resolve, reject) => {
         setTimeout(() => {
             resolve(productos)
             setProducts(productos)
             setLoading(false)
         }, 2000);
     })
-    .then((res) => setProducts(res))
-}, [])
 
-const id = useParams()
-    
 
-useEffect(()=>{
-    console.log(products)
-    const res = products.filter((value)=>{
-        return value.id == id.id
-    })
-    console.log(res);
-    setProducts(res)
-},[id])
+    if(categoriaId){
+        setLoading(true)
+        getProducts.then((res) => setProducts(res.filter(keyboard => keyboard.description === categoriaId)))
+    } else {
+        getProducts.then((res) => setProducts(res))
+    }
+
+}, [categoriaId])
 
 
 
 
     return(
-        <div className="flex justify-center">
+        <div className="flex bg-zinc-200 justify-center">
             {loading ? (
                 <div className="h-screen w-screen bg-white">
                 <div className="flex justify-center items-center h-full">
@@ -115,7 +113,7 @@ useEffect(()=>{
                 </div>
                 )
                 :(
-                <div className="p-20 bg-zinc-200 rounded-xl text-xl">
+                <div className="p-20 bg-zinc-200 h-full text-xl">
                 <ItemList products={products} />
             </div>)}
 
