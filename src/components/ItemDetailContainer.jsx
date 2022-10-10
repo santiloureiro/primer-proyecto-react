@@ -101,7 +101,7 @@ useEffect(() => {
             resolve(productos)
             setProducts(productos)
             setLoading(false)
-        }, 2000);
+        }, 1000);
     })
 
     getProducts.then(res => setProducts(res.find(product => product.id === parseInt(productoId))))

@@ -11,21 +11,19 @@ function App() {
     <div className="bg-zinc-200">
       <BrowserRouter>
       <NavBar></NavBar>
+      <CartContext>
       <Routes>
         <Route exact path="/home" element={<Home></Home>}></Route>
         <Route exact path="/" element={<ItemListContainer></ItemListContainer>}></Route>
         <Route path="/category/:categoriaId" element={<ItemListContainer></ItemListContainer>}></Route>
         <Route path="/item/:productoId" element={
-          <CartContext>
             <ItemDetailContainer></ItemDetailContainer>
-          </CartContext>
         }></Route>
         <Route exact path="/cart" element={
-            <CartContext>
               <Cart></Cart>
-            </CartContext>
         }></Route>
       </Routes>
+      </CartContext>
       </BrowserRouter>
     </div>
   );

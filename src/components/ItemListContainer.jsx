@@ -87,7 +87,7 @@ useEffect(() => {
             resolve(productos)
             setProducts(productos)
             setLoading(false)
-        }, 2000);
+        }, 1000);
     })
 
 
