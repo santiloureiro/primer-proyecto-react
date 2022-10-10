@@ -60,7 +60,7 @@ const Cart = () => {
                                                 <div className="flex flex-col justify-between ml-4 flex-grow">
                                                     <span className="font-bold text-sm">{item.name}</span>
                                                     <span className="text-red-500 text-xs">{item.type}</span>
-                                                    <button onClick={() => {removeFromCart(); forceUpdate()}} className="font-semibold hover:text-red-500 text-gray-500 text-xs">Remove</button>
+                                                    <button onClick={() => {removeFromCart(i); forceUpdate()}} className="font-semibold hover:text-red-500 text-gray-500 text-xs">Remove</button>
                                                 </div>
                                             </div>
                                             <div className="flex justify-center w-1/5">
