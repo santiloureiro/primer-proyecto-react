@@ -1,9 +1,12 @@
-import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useContext, useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import Contexts from "../contexts/Items";
 import ItemDetail from "./ItemDetail";
 
 
 const ItemDetailContainer = () => {
+
+    let navigate = useNavigate();
 
     const randomNumber = (ceil) => {
         let randomNumber = Math.round(Math.random()*ceil)
@@ -15,6 +18,8 @@ const ItemDetailContainer = () => {
     const [loading, setLoading] = useState(true)
 
     const { productoId } = useParams()
+
+    const context = useContext(Contexts.cartContext)
 
 useEffect(() => {
     const productos = [
@@ -103,6 +108,11 @@ useEffect(() => {
 
 }, [productoId])
 
+    const handleCheckout = () => {
+        context.setCart([...context.cart, product])
+        navigate("/cart")
+    }
+
 
     return(
         <div className="flex bg-zinc-200 justify-center">
@@ -115,7 +125,7 @@ useEffect(() => {
                 )
                 :(
                 <div className="flex justify-center items-center bg-zinc-200 h-[90vh] text-xl">
-                <ItemDetail product={product} />
+                <ItemDetail product={product} cartAdd={handleCheckout} />
             </div>)}
 
         </div>

@@ -3,9 +3,9 @@ import ItemCount from "./ItemCount"
 
 
 const ItemDetail = (props) => {
-    console.log(props.product)
 
     const [count, setCount] = useState(0);
+
 
     const [alerta, setAlerta] = useState(false)
 
@@ -22,6 +22,8 @@ const ItemDetail = (props) => {
         else setAlerta(false)
     }
 
+    // {props.context.cart}
+
     return (
         <div className="flex bg-white">
             <div className="container px-5 py-5 rounded-r-2xl mx-auto">
@@ -35,7 +37,7 @@ const ItemDetail = (props) => {
                             <p className="leading-relaxed text-center">{props.product.description}</p>
                             <div className="flex flex-col justify-center items-center mt-5">
                                 <span className="title-font mb-5 font-medium text-2xl text-gray-900">${props.product.price}</span>
-                                <ItemCount stock={props.product.stock} add1={add1ToCount} minus1={remove1ToCount} noMore={noMoreStock} stateVal={count} alert={alerta} initial={0} />
+                                <ItemCount cartAdd={props.cartAdd} item={props.product} add1={add1ToCount} minus1={remove1ToCount} noMore={noMoreStock} stateVal={count} alert={alerta} initial={0} />
                                 <span className="bg-black mt-6 px-20 font-medium rounded-lg text-white">Stock: {props.product.stock}</span>
                             </div>
                         </div>
