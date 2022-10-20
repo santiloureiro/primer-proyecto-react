@@ -1,4 +1,4 @@
-import NavBarItems from "./NavBarItems";
+import NavBarItems from "../presentation/NavBarItems";
 
 
 const NavBar = () => {

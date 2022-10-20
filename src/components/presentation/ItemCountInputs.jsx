@@ -3,7 +3,9 @@ import { faPlus } from "@fortawesome/free-solid-svg-icons"
 import { faMinus } from "@fortawesome/free-solid-svg-icons"
 
 
-const ItemCountInputs = ({add1, minus1, noMore, stateVal, alert}) => {
+const ItemCountInputs = ({add1, minus1, noMore, stateVal, alert, func}) => {
+
+    func(stateVal)
 
     return (
         <div className="flex text-white h-fit border border-slate-200 w-fit rounded-sm">

@@ -37,7 +37,7 @@ const ItemDetail = (props) => {
                             <p className="leading-relaxed text-center">{props.product.description}</p>
                             <div className="flex flex-col justify-center items-center mt-5">
                                 <span className="title-font mb-5 font-medium text-2xl text-gray-900">${props.product.price}</span>
-                                <ItemCount cartAdd={props.cartAdd} item={props.product} add1={add1ToCount} minus1={remove1ToCount} noMore={noMoreStock} stateVal={count} alert={alerta} initial={0} />
+                                <ItemCount cartAdd={() => {props.cartAdd(count)}} item={props.product} add1={add1ToCount} minus1={remove1ToCount} noMore={noMoreStock} stateVal={count} alert={alerta} initial={0} />
                                 <span className="bg-black mt-6 px-20 font-medium rounded-lg text-white">Stock: {props.product.stock}</span>
                             </div>
                         </div>

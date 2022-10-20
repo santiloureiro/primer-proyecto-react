@@ -1,5 +1,5 @@
-import logoNegro from "../resources/LOGO KT Negro.png"
-import logoBlanco from "../resources/LOGO KT Blanco.png"
+import logoNegro from "../../resources/LOGO KT Negro.png"
+import logoBlanco from "../../resources/LOGO KT Blanco.png"
 import CartWidget from "./CartWidget"
 import { NavLink } from "react-router-dom"
 
@@ -13,8 +13,8 @@ const NavBarItems = () => {
                     onMouseOut={e => (e.currentTarget.src = logoNegro)}/></NavLink>
             </div>
             <ul className="flex flex-row items-center">
-                <li><NavLink to={"/home"}><span className="mx-2 px-3 py-1 rounded-lg text-white font-semibold transition-all hover:bg-white hover:text-black">Home</span></NavLink></li>
-                <li><NavLink to={"/"}><span className="mx-2 px-3 py-1 rounded-lg text-white font-semibold transition-all hover:bg-white hover:text-black">Products</span></NavLink></li>
+                <li><NavLink to={"/"}><span className="mx-2 px-3 py-1 rounded-lg text-white font-semibold transition-all hover:bg-white hover:text-black">Home</span></NavLink></li>
+                <li><NavLink to={"/products"}><span className="mx-2 px-3 py-1 rounded-lg text-white font-semibold transition-all hover:bg-white hover:text-black">Products</span></NavLink></li>
                 <li><NavLink to={"/category/S"}><span className="mx-2 px-3 py-1 rounded-lg text-white font-medium transition-all hover:bg-white hover:text-black">Size: S</span></NavLink></li>
                 <li><NavLink to={"/category/M"}><span className="mx-2 px-3 py-1 rounded-lg text-white font-medium transition-all hover:bg-white hover:text-black">Size: M</span></NavLink></li>
                 <li><NavLink to={"/category/L"}><span className="mx-2 px-3 py-1 rounded-lg text-white font-medium transition-all hover:bg-white hover:text-black">Size: L</span></NavLink></li>

@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import Contexts from "../contexts/Items";
-import ItemDetail from "./ItemDetail";
+import Contexts from "../../contexts/Items";
+import ItemDetail from "../presentation/ItemDetail";
 
 
 const ItemDetailContainer = () => {
@@ -108,7 +108,7 @@ useEffect(() => {
 
 }, [productoId])
 
-    const handleCheckout = () => {
+    const handleCheckout = (unit) => {
         context.setCart([...context.cart, product])
         navigate("/cart")
     }
@@ -125,7 +125,7 @@ useEffect(() => {
                 )
                 :(
                 <div className="flex justify-center items-center bg-zinc-200 h-[90vh] text-xl">
-                <ItemDetail product={product} cartAdd={handleCheckout} />
+                <ItemDetail product={product} cartAdd={() => {handleCheckout()}} />
             </div>)}
 
         </div>

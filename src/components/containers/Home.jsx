@@ -1,5 +1,5 @@
 
-import LogoImg from "../resources/KeyTech.png"
+import LogoImg from "../../resources/KeyTech.png"
 
 const Home = () => {
 
