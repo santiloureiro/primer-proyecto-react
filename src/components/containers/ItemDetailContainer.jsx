@@ -6,8 +6,6 @@ import ItemDetail from "../presentation/ItemDetail";
 
 const ItemDetailContainer = () => {
 
-    let navigate = useNavigate();
-
     const randomNumber = (ceil) => {
         let randomNumber = Math.round(Math.random()*ceil)
         return randomNumber
@@ -110,7 +108,6 @@ useEffect(() => {
 
     const handleCheckout = (unit) => {
         context.setCart([...context.cart, product])
-        navigate("/cart")
     }
 
 

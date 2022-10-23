@@ -3,7 +3,7 @@ import { faPlus } from "@fortawesome/free-solid-svg-icons"
 import { faMinus } from "@fortawesome/free-solid-svg-icons"
 
 
-const ItemCountInputs = ({add1, minus1, noMore, stateVal, alert, func}) => {
+const ItemQuantitySelector = ({add1, minus1, noMore, stateVal, alert, func}) => {
 
     func(stateVal)
 
@@ -24,4 +24,4 @@ const ItemCountInputs = ({add1, minus1, noMore, stateVal, alert, func}) => {
     )
 }
 
-export default ItemCountInputs
+export default ItemQuantitySelector
