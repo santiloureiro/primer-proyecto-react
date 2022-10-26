@@ -1,9 +1,9 @@
+import Swal from "sweetalert2";
 
 
 
-const Brief = ({state, removeFromCart, forceUpdate, totalPrice, buyer, showBuyer, purchaseComplete, sendOrder}) => {
+const Brief = ({state, removeFromCart, forceUpdate, totalPrice, buyer, showBuyer, purchaseComplete, sendOrder, name, email, phone, setEmail, setName, setPhone}) => {
 
-    
 return(
     <div className="mx-auto flex flex-col flex-wrap items-center justify-center">
         <div className="flex shadow-md w-[90vw] my-10">
@@ -21,18 +21,18 @@ return(
                     <div key={i} className="flex items-center hover:bg-gray-100 -mx-8 px-6 py-5">
                         <div className="flex w-2/5">
                             <div className="w-20">
-                                <img src={item.pictureUrl} alt="" />
+                                <img src={item.product.pictureUrl} alt="" />
                             </div>
                             <div className="flex flex-col justify-between ml-4 flex-grow">
-                                <span className="font-bold text-sm">{item.name}</span>
-                                <span className="text-red-500 text-xs">{item.type}</span>
+                                <span className="font-bold text-sm">{item.product.name}</span>
+                                <span className="text-red-500 text-xs">{item.product.size}</span>
                                 <button onClick={() => { removeFromCart(i); forceUpdate() }} className="font-semibold hover:text-red-500 text-gray-500 text-xs">Remove</button>
                             </div>
                         </div>
                         <div className="flex justify-center w-1/5">
-                            <span className="mx-2 border text-center w-8"> 1 </span>
+                            <span className="mx-2 border text-center w-8"> {item.quantity || 1} </span>
                         </div>
-                        <span className="text-center w-1/5 font-semibold text-sm">$ {item.price}</span>
+                        <span className="text-center w-1/5 font-semibold text-sm">$ {item.product.price * item.quantity}</span>
                     </div>
                 ))}
             </div>
@@ -42,36 +42,16 @@ return(
                     <span className="font-semibold text-sm uppercase">Items {state.length}</span>
                     <span className="font-semibold text-sm">$ {totalPrice}</span>
                 </div>
+                <div className="flex flex-col align-middle justify-center">
+                <label className="my-2 text-sm font-medium text-gray-900 dark:text-gray-300">Name</label>
+                    <input onChange={e => {setName(e.target.value)}} type="text" id="name" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5" placeholder="Pepito" required></input>
+                <label className="my-2 text-sm font-medium text-gray-900 dark:text-gray-300">Phone</label>
+                    <input onChange={e => {setEmail(e.target.value)}} type="tel" id="phone" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5" placeholder="123-456-789" required></input>
+                <label className="my-2 text-sm font-medium text-gray-900 dark:text-gray-300">E-Mail</label>
+                    <input onChange={e => {setPhone(e.target.value)}} type="email" id="email" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-full p-2.5" placeholder="comprador@compramail.com" required></input>
+                </div>
                 <div className="border-t mt-8">
-                    <button onClick={() => { purchaseComplete() }} className="bg-emerald-500 font-semibold hover:bg-emerald-600 py-3 text-sm text-white uppercase w-full">Checkout</button>{
-                        showBuyer ? (<div className="absolute inset-0 p-10 bg-zinc-900">
-                            <div className="flex flex-col items-center text-white p-5 bg-zinc-900">
-                                <h1 className="font-bold">Tu resumen de la compra:</h1>
-                                <ul className="my-3"><label className="font-bold">Tus Datos</label>
-                                    <li><span className="font-bold">Nombre:</span> {buyer.name}</li>
-                                    <li><span className="font-bold">Telefono:</span> {buyer.phone}</li>
-                                    <li><span className="font-bold">E-Mail: </span> {buyer.email}</li>
-                                </ul>
-
-                                <div className="my-3">
-                                    {state.map((prod) => {
-                                        return (
-                                            <div className="my-2">
-                                                <h5 className="font-bold">Item: {prod.id}</h5>
-                                                <p><span className="font-bold">Item: </span> {prod.name}</p>
-                                                <p><span className="font-bold">Tipo: </span>{prod.type}</p>
-                                                <p><span className="font-bold">Precio: </span>$ {prod.price}.00</p>
-                                            </div>
-                                        )
-                                    })}
-                                </div>
-                                <div>
-                                    <button onClick={() => { sendOrder(); purchaseComplete() }} className="bg-green-600 font-semibold hover:bg-green-700 py-3 m-3 rounded-2xl text-sm text-white uppercase px-20">Terminar Compra!</button>
-                                    <button onClick={purchaseComplete} className="bg-red-600 font-semibold hover:bg-red-800 py-3 m-3 rounded-2xl text-sm text-white uppercase px-20">Cerrar</button>
-                                </div>
-                            </div>
-                        </div>) : null
-                    }
+                    <button onClick={() => { sendOrder() }} className="bg-emerald-500 font-semibold hover:bg-emerald-600 py-3 text-sm text-white uppercase w-full">Checkout</button>
                 </div>
             </div>
         </div>

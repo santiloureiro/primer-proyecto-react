@@ -1,27 +1,45 @@
 import { useState } from "react";
+import Swal from "sweetalert2";
 import ItemCount from "./ItemCount"
 
 
 const ItemDetail = (props) => {
 
-    const [count, setCount] = useState(0);
-
-
-    const [alerta, setAlerta] = useState(false)
+    const Toast = Swal.mixin({
+        toast: true,
+        position: 'bottom-right',
+        iconColor: "white",
+        background: "#D33434",
+        color: "white",
+        customClass: {
+        popup: 'colored-toast'
+        },
+        showConfirmButton: false,
+        timer: 1500,
+        timerProgressBar: true
+    })
 
     const add1ToCount = () => {
-        if (count !== props.product.stock) setCount(count + 1)
+        if (props.counter !== props.product.stock) props.setCount(props.counter + 1)
+        console.log(props.counter, props.product.stock)
     }
 
     const remove1ToCount = () => {
-        if (count !== 0) { setCount(count - 1) }
+        if (props.counter !== 0) {props.setCount(props.counter - 1) }
     }
 
     const noMoreStock = () => {
-        if (count === props.product.stock) setAlerta(true)
-        else setAlerta(false)
+        if (props.counter === parseInt(props.product.stock)){
+            Toast.fire({
+                icon: 'warning',
+                title: 'No hay mas stock!'
+            })
+            props.setCount(parseInt(props.product.stock - 1))
+        } 
     }
 
+
+    
     // {props.context.cart}
 
     return (
@@ -34,10 +52,10 @@ const ItemDetail = (props) => {
                             <h1 className="text-gray-900 text-3xl title-font text-center font-medium mb-1">{props.product.name}</h1>
                             <div className="flex mb-4">
                             </div>
-                            <p className="leading-relaxed text-center">{props.product.description}</p>
+                            <p className="leading-relaxed text-center">{props.product.size}</p>
                             <div className="flex flex-col justify-center items-center mt-5">
                                 <span className="title-font mb-5 font-medium text-2xl text-gray-900">${props.product.price}</span>
-                                <ItemCount cartAdd={() => {props.cartAdd(count)}} item={props.product} add1={add1ToCount} minus1={remove1ToCount} noMore={noMoreStock} stateVal={count} alert={alerta} initial={0} />
+                                <ItemCount cartAdd={() => {props.cartAdd(props.counter)}} add1={add1ToCount} minus1={remove1ToCount} noMore={noMoreStock} stateVal={props.counter}/>
                                 <span className="bg-black mt-6 px-20 font-medium rounded-lg text-white">Stock: {props.product.stock}</span>
                             </div>
                         </div>

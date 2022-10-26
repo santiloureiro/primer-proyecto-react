@@ -1,14 +1,12 @@
 import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 import ItemList from "../presentation/ItemList"
+import { getFirestore, collection, getDoc, getDocs, doc, db, where, query } from "firebase/firestore"
 
 
 const ItemListContainer = () => {
 
-    const randomNumber = (ceil) => {
-        let randomNumber = Math.round(Math.random()*ceil)
-        return randomNumber
-    }
+
 
     const [products, setProducts] = useState([])
 
@@ -17,89 +15,57 @@ const ItemListContainer = () => {
     const { categoriaId } = useParams()
 
 useEffect(() => {
-    const productos = [
-        {   id: 1,
-            name: "Blueberry",
-            description: "S",
-            stock: 6,
-            price: 200,
-            pictureUrl: "https://res.cloudinary.com/djccefmjp/image/upload/v1654284302/Blueberrysin_gbte2j.png"
-        },
-        {   id: 2,
-            name: "Strawberry",
-            description: "S",
-            stock: randomNumber(100),
-            price: 200,
-            pictureUrl: "https://res.cloudinary.com/djccefmjp/image/upload/v1654284301/StrawBerrysin_ci4zo0.png"
-        },
-        {   id: 3,
-            name: "Yellow",
-            description: "S",
-            stock: randomNumber(100),
-            price: 200,
-            pictureUrl: "https://res.cloudinary.com/djccefmjp/image/upload/v1654284301/Yellowsin_vna33d.png"
-        },
-        {   id: 4,
-            name: "OrangePeel",
-            description: "M",
-            stock: randomNumber(100),
-            price: 200,
-            pictureUrl: "https://res.cloudinary.com/djccefmjp/image/upload/v1654284302/OrangePeel_Medium_lfcisa.png"
-        },
-        {   id: 5,
-            name: "Oreo",
-            description: "M",
-            stock: randomNumber(100),
-            price: 200,
-            pictureUrl: "https://res.cloudinary.com/djccefmjp/image/upload/v1654284302/Oreo_Mediumsin_hov8av.png"
-        },
-        {   id: 6,
-            name: "BlueSky",
-            description: "M",
-            stock: randomNumber(100),
-            price: 200,
-            pictureUrl: "https://res.cloudinary.com/djccefmjp/image/upload/v1654284301/BlueSky_Medium_vmfmdr.png"
-        },
-        {   id: 7,
-            name: "Bee",
-            description: "L",
-            stock: randomNumber(100),
-            price: 200,
-            pictureUrl: "https://res.cloudinary.com/djccefmjp/image/upload/v1654284301/Bee_Largesin_gjxcoc.png"
-        },
-        {   id: 8,
-            name: "WaterMelon",
-            description: "L",
-            stock: randomNumber(100),
-            price: 200,
-            pictureUrl: "https://res.cloudinary.com/djccefmjp/image/upload/v1654284301/WaterMelon_Large_cbe1wz.png"
-        },
-        {   id: 9,
-            name: "NightLight",
-            description: "L",
-            stock: randomNumber(100),
-            price: 200,
-            pictureUrl: "https://res.cloudinary.com/djccefmjp/image/upload/v1654284301/NightLight_Largesin_y2xb8l.png"
-        },
-    ]
-    const getProducts = new Promise((resolve, reject) => {
-        setTimeout(() => {
-            resolve(productos)
-            setProducts(productos)
-            setLoading(false)
-        }, 1000);
-    })
 
+    const db = getFirestore();
+
+    const fetchAllProducts = async () => { 
+        
+        let arrayFetch = []
+
+        //Compara los precios y los ordena de menor a mayor
+        function compareProdsPrice( a, b ) {
+            if ( a.price < b.price ){
+            return -1;
+            }
+            if ( a.price > b.price ){
+            return 1;
+            }
+            return 0;
+        }
+
+        const querySnapshot = await getDocs(collection(db, "productos"));
+        querySnapshot.forEach((doc) => {
+            arrayFetch.push(doc.data())
+        })
+        
+        arrayFetch.sort( compareProdsPrice );
+        return arrayFetch
+    }
+
+    const fetchCategory = async () => {
+
+        const q = query(collection(db, "productos"), where("size", "==", categoriaId));
+        let arrayFetch = []
+
+        const querySnapshot = await getDocs(q);
+        querySnapshot.forEach((doc) => {
+            arrayFetch.push(doc.data())
+        });
+        return arrayFetch
+    }
 
     if(categoriaId){
-        setLoading(true)
-        getProducts.then((res) => setProducts(res.filter(keyboard => keyboard.description === categoriaId)))
+        fetchCategory().then(res => {
+            setProducts(res)
+            setLoading(false)})
     } else {
-        getProducts.then((res) => setProducts(res))
+        fetchAllProducts().then(res => {
+            console.log(res)
+            setProducts(res)
+            setLoading(false)})
     }
 
 }, [categoriaId])
-
 
 
 

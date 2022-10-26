@@ -2,12 +2,11 @@ import Item from "./Item"
 
 
 
-const ItemList = (props) => {
-
+const ItemList = ({products}) => {
 
     return(
         <div className="grid place-content-center grid-cols-3">
-            {props.products.map(item => <Item key={item.id} data={item} />)}
+            {products.map((item, i) => <Item key={i} data={item} />)}
         </div>
     )
 }

@@ -1,113 +1,63 @@
 import { useContext, useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import Contexts from "../../contexts/Items";
 import ItemDetail from "../presentation/ItemDetail";
+import { getFirestore, doc, getDoc } from "firebase/firestore";
+import Swal from "sweetalert2";
 
 
 const ItemDetailContainer = () => {
 
-    const randomNumber = (ceil) => {
-        let randomNumber = Math.round(Math.random()*ceil)
-        return randomNumber
-    }
-
-    const [product, setProducts] = useState([])
+    const [product, setProduct] = useState([])
 
     const [loading, setLoading] = useState(true)
+
+    const [count, setCount] = useState(1);
 
     const { productoId } = useParams()
 
     const context = useContext(Contexts.cartContext)
 
 useEffect(() => {
-    const productos = [
-        {   id: 1,
-            name: "Blueberry",
-            type: "S",
-            stock: 6,
-            price: 200,
-            pictureUrl: "https://res.cloudinary.com/djccefmjp/image/upload/v1654284302/Blueberrysin_gbte2j.png",
-            description: "Probaste los teclados 60%? Son ideales para llevar a donde quieras!"
-        },
-        {   id: 2,
-            name: "Strawberry",
-            type: "S",
-            stock: randomNumber(100),
-            price: 200,
-            pictureUrl: "https://res.cloudinary.com/djccefmjp/image/upload/v1654284301/StrawBerrysin_ci4zo0.png",
-            description: "Probaste los teclados 60%? Son ideales para llevar a donde quieras!"
-        },
-        {   id: 3,
-            name: "Yellow",
-            type: "S",
-            stock: randomNumber(100),
-            price: 200,
-            pictureUrl: "https://res.cloudinary.com/djccefmjp/image/upload/v1654284301/Yellowsin_vna33d.png",
-            description: "Probaste los teclados 60%? Son ideales para llevar a donde quieras!"
-        },
-        {   id: 4,
-            name: "OrangePeel",
-            type: "M",
-            stock: randomNumber(100),
-            price: 200,
-            pictureUrl: "https://res.cloudinary.com/djccefmjp/image/upload/v1654284302/OrangePeel_Medium_lfcisa.png",
-            description: "Nuestro TKL, perfecto para escritorios pequeños."
-        },
-        {   id: 5,
-            name: "Oreo",
-            type: "M",
-            stock: randomNumber(100),
-            price: 200,
-            pictureUrl: "https://res.cloudinary.com/djccefmjp/image/upload/v1654284302/Oreo_Mediumsin_hov8av.png",
-            description: "Nuestro TKL, perfecto para escritorios pequeños."
-        },
-        {   id: 6,
-            name: "BlueSky",
-            type: "M",
-            stock: randomNumber(100),
-            price: 200,
-            pictureUrl: "https://res.cloudinary.com/djccefmjp/image/upload/v1654284301/BlueSky_Medium_vmfmdr.png",
-            description: "Nuestro TKL, perfecto para escritorios pequeños."
-        },
-        {   id: 7,
-            name: "Bee",
-            type: "L",
-            stock: randomNumber(100),
-            price: 200,
-            pictureUrl: "https://res.cloudinary.com/djccefmjp/image/upload/v1654284301/Bee_Largesin_gjxcoc.png",
-            description: "Para los que prefieren un teclado full-size."
-        },
-        {   id: 8,
-            name: "WaterMelon",
-            type: "L",
-            stock: randomNumber(100),
-            price: 200,
-            pictureUrl: "https://res.cloudinary.com/djccefmjp/image/upload/v1654284301/WaterMelon_Large_cbe1wz.png",
-            description: "Para los que prefieren un teclado full-size."
-        },
-        {   id: 9,
-            name: "NightLight",
-            type: "L",
-            stock: randomNumber(100),
-            price: 200,
-            pictureUrl: "https://res.cloudinary.com/djccefmjp/image/upload/v1654284301/NightLight_Largesin_y2xb8l.png",
-            description: "Para los que prefieren un teclado full-size."
-        },
-    ]
-    const getProducts = new Promise((resolve, reject) => {
-        setTimeout(() => {
-            resolve(productos)
-            setProducts(productos)
-            setLoading(false)
-        }, 1000);
-    })
 
-    getProducts.then(res => setProducts(res.find(product => product.id === parseInt(productoId))))
+    const db = getFirestore();
 
-}, [productoId])
+    const fetchProducts = async () => { 
+        
+        const docRef = doc(db, "productos", productoId);
+        const docSnap = await getDoc(docRef);
 
-    const handleCheckout = (unit) => {
-        context.setCart([...context.cart, product])
+        return docSnap.data()
+        
+    }
+
+    fetchProducts().then(product => {
+        setProduct(product)
+        setLoading(false)})
+
+},[productoId])
+
+    const handleCheckout = () => {
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'bottom-right',
+            iconColor: "white",
+            background: "#34D399",
+            color: "white",
+            customClass: {
+            popup: 'colored-toast'
+            },
+            showConfirmButton: false,
+            timer: 1500,
+            timerProgressBar: true
+        })
+
+        context.setCart([...context.cart, {product: product, quantity: count}])
+
+        Toast.fire({
+            icon: 'success',
+            title: `Added ${count}, ${product.name}`
+        })
     }
 
 
@@ -122,7 +72,8 @@ useEffect(() => {
                 )
                 :(
                 <div className="flex justify-center items-center bg-zinc-200 h-[90vh] text-xl">
-                <ItemDetail product={product} cartAdd={() => {handleCheckout()}} />
+                <ItemDetail product={product} counter={count} setCount={setCount} cartAdd={handleCheckout} />
+
             </div>)}
 
         </div>
