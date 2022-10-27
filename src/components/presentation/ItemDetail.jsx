@@ -21,7 +21,6 @@ const ItemDetail = (props) => {
 
     const add1ToCount = () => {
         if (props.counter !== props.product.stock) props.setCount(props.counter + 1)
-        console.log(props.counter, props.product.stock)
     }
 
     const remove1ToCount = () => {
@@ -32,7 +31,7 @@ const ItemDetail = (props) => {
         if (props.counter === parseInt(props.product.stock)){
             Toast.fire({
                 icon: 'warning',
-                title: 'No hay mas stock!'
+                title: 'Not enough stock!'
             })
             props.setCount(parseInt(props.product.stock - 1))
         } 

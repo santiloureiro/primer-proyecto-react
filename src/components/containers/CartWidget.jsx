@@ -37,6 +37,14 @@ const CartWidget = () => {
         return price
     }
 
+    const getTotalItems = () => {
+        let totalItems = 0
+        state.forEach(element => {
+            totalItems = element.quantity + totalItems
+        });
+        return totalItems
+    }
+
 
     const removeFromCart = (i) => {
         contexto.cart.splice(i, 1)
@@ -45,6 +53,8 @@ const CartWidget = () => {
     }
 
     const totalPrice = getTotalPrice()
+
+    const totalItems = getTotalItems()
 
     useEffect(() => {
         if(state.length === 0){
@@ -89,9 +99,9 @@ const CartWidget = () => {
         addDoc(ordersCollection, order)
 
         Swal.fire({
-            title: 'Compra Completada!',
+            title: 'Purchase Complete!',
             icon: 'success',
-            confirmButtonText: 'Cerrar',
+            confirmButtonText: 'Close',
             iconColor: "white",
             background: "#34D399",
             color: "white",
@@ -101,7 +111,7 @@ const CartWidget = () => {
     } else{
         Swal.fire({
             title: 'Error!',
-            text: `Faltan datos!`,
+            text: `Missing data!`,
             icon: 'error',
             confirmButtonText: 'Cerrar',
             confirmButtonColor: "red"
@@ -116,7 +126,7 @@ const CartWidget = () => {
                 <h1 className="font-extrabold p-5 text-3xl text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600">El carrito esta vacio!</h1>
                 <NavLink to={"/products"}><button className="bg-gradient-to-r from-purple-400 to-pink-600 font-semibold rounded-lg p-3 hover:p-4 my-3 text-sm text-white uppercase w-full transition-all">Ir a productos!</button></NavLink>
                 </div>) :
-                (<Brief state={state} removeFromCart={removeFromCart} forceUpdate={forceUpdate} totalPrice={totalPrice} buyer={buyer} showBuyer={showBuyer} setShow={setShow} sendOrder={sendOrder} purchaseComplete={purchaseComplete} name={name} email={email} phone={phone} setEmail={setEmail} setName={setName} setPhone={setPhone} ></Brief>)}
+                (<Brief state={state} removeFromCart={removeFromCart} forceUpdate={forceUpdate} totalPrice={totalPrice} totalItems={totalItems} buyer={buyer} showBuyer={showBuyer} setShow={setShow} sendOrder={sendOrder} purchaseComplete={purchaseComplete} name={name} email={email} phone={phone} setEmail={setEmail} setName={setName} setPhone={setPhone} ></Brief>)}
     </div>
 
 
