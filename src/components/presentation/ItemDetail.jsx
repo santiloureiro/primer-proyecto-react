@@ -1,6 +1,6 @@
-import { useState } from "react";
+
 import Swal from "sweetalert2";
-import ItemCount from "./ItemCount"
+import AddItemButton from "./ItemCount";
 
 
 const ItemDetail = (props) => {
@@ -50,12 +50,12 @@ const ItemDetail = (props) => {
                         <div className="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
                             <h2 className="text-sm title-font text-center text-gray-500 tracking-widest">{props.product.type}</h2>
                             <h1 className="text-gray-900 text-3xl title-font text-center font-medium mb-1">{props.product.name}</h1>
-                            <div className="flex mb-4">
+                            <div className="flex mb-1">
                             </div>
                             <p className="leading-relaxed text-center">{props.product.size}</p>
-                            <div className="flex flex-col justify-center items-center mt-5">
+                            <div className="flex flex-col justify-center items-center mt-2">
                                 <span className="title-font mb-5 font-medium text-2xl text-gray-900">${props.product.price}</span>
-                                <ItemCount cartAdd={() => {props.cartAdd(props.counter)}} add1={add1ToCount} minus1={remove1ToCount} noMore={noMoreStock} stateVal={props.counter}/>
+                                <AddItemButton cartAdd={() => {props.cartAdd(props.counter)}} add1={add1ToCount} minus1={remove1ToCount} noMore={noMoreStock} stateVal={props.counter}/>
                                 <span className="bg-black mt-6 px-20 font-medium rounded-lg text-white">Stock: {props.product.stock}</span>
                             </div>
                         </div>

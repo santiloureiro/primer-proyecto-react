@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom"
+
 import surprisedPikachu from "../../resources/surprised-pikachu.gif"
 
 const NotFound = () => {

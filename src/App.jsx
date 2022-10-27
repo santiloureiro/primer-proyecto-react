@@ -3,9 +3,10 @@ import ItemListContainer from "./components/containers/ItemListContainer";
 import ItemDetailContainer from "./components/containers/ItemDetailContainer";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from "./components/containers/Home";
-import Cart from "./components/containers/Cart";
 import CartContext from "./components/providers/CartContext";
 import NotFound from "./components/presentation/NotFound";
+import CartWidget from "./components/containers/CartWidget";
+
 
 function App() {
   return (
@@ -18,7 +19,7 @@ function App() {
         <Route exact path="/products" element={<ItemListContainer></ItemListContainer>}></Route>
         <Route path="/category/:categoriaId" element={<ItemListContainer></ItemListContainer>}></Route>
         <Route path="/item/:productoId" element={<ItemDetailContainer></ItemDetailContainer>}></Route>
-        <Route exact path="/cart" element={<Cart></Cart>}></Route>
+        <Route exact path="/cart" element={<CartWidget/>}></Route>
         <Route path="*" element={<NotFound />}></Route>
       </Routes>
       </CartContext>

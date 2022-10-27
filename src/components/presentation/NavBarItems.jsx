@@ -1,6 +1,6 @@
 import logoNegro from "../../resources/LOGO KT Negro.png"
 import logoBlanco from "../../resources/LOGO KT Blanco.png"
-import CartWidget from "./CartWidget"
+import CartIcon from "./CartIcon"
 import { NavLink } from "react-router-dom"
 
 const NavBarItems = () => {
@@ -18,7 +18,7 @@ const NavBarItems = () => {
                 <li><NavLink to={"/category/S"}><span className="mx-2 px-3 py-1 rounded-lg text-white font-medium transition-all hover:bg-white hover:text-black">Size: S</span></NavLink></li>
                 <li><NavLink to={"/category/M"}><span className="mx-2 px-3 py-1 rounded-lg text-white font-medium transition-all hover:bg-white hover:text-black">Size: M</span></NavLink></li>
                 <li><NavLink to={"/category/L"}><span className="mx-2 px-3 py-1 rounded-lg text-white font-medium transition-all hover:bg-white hover:text-black">Size: L</span></NavLink></li>
-                <li><CartWidget /></li>
+                <li><CartIcon /></li>
             </ul>
         </div>
     )

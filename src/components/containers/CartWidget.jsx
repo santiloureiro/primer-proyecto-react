@@ -3,7 +3,7 @@ import React, { useContext, useEffect } from "react"
 import { useState } from "react"
 import Contexts from "../../contexts/Items"
 import { NavLink } from "react-router-dom"
-import {addDoc, doc, getFirestore, updateDoc, collection} from "firebase/firestore"
+import {addDoc, getFirestore, collection} from "firebase/firestore"
 import Brief from "../presentation/Brief"
 // ES6 Modules or TypeScript
 import Swal from 'sweetalert2'
@@ -14,7 +14,7 @@ function useForceUpdate() {
     return () => setState(!value);
 }
 
-const Cart = () => {
+const CartWidget = () => {
 
     const forceUpdate = useForceUpdate()
 
@@ -123,4 +123,4 @@ const Cart = () => {
     )
 }
 
-export default Cart
+export default CartWidget

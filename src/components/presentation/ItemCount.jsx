@@ -1,7 +1,7 @@
 import ItemQuantitySelector from "./ItemQuantitySelector"
 
 
-const ItemCount = ({item, cartAdd, add1, minus1, noMore, stateVal}) => {
+const AddItemButton = ({item, cartAdd, add1, minus1, noMore, stateVal}) => {
 
 
     return(
@@ -12,4 +12,4 @@ const ItemCount = ({item, cartAdd, add1, minus1, noMore, stateVal}) => {
     )
 }
 
-export default ItemCount
+export default AddItemButton
