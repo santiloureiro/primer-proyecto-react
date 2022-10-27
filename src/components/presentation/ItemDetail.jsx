@@ -25,7 +25,7 @@ const ItemDetail = (props) => {
     }
 
     const remove1ToCount = () => {
-        if (props.counter !== 0) {props.setCount(props.counter - 1) }
+        if (props.counter !== 1) {props.setCount(props.counter - 1) }
     }
 
     const noMoreStock = () => {
