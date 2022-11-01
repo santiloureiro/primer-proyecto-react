@@ -100,6 +100,7 @@ const CartWidget = () => {
 
         Swal.fire({
             title: 'Purchase Complete!',
+            text: `Nombre: ${buyer.name}, E-mail: ${buyer.email}, Tel: ${buyer.phone}`,
             icon: 'success',
             confirmButtonText: 'Close',
             iconColor: "white",
